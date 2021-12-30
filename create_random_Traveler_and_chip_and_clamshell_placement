@@ -1,0 +1,4 @@
+# this file generates random arangments of a traveler for the image rec
+import cv2
+import numpy
+import 
