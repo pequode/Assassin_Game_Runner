@@ -2,6 +2,7 @@ import cv2 as cv
 import csv
 import random
 import requests
+# this is meant to allow people to create a png of the field. 
 def extractInputs(csvPath = "Entrants.csv" ):
     Names = []
     Emails =[]
@@ -20,6 +21,6 @@ def extractInputs(csvPath = "Entrants.csv" ):
 
     return (Names,Emails,ImageIDs,dead)
 
-[N,na,Img,Dead] = extractInputs(csvPath ="/home/whorehay/Desktop/github/Assassin_Game_Runner/ASSASSIN.csv" )
+[N,na,Img,Dead] = extractInputs(csvPath ="PATHTOTHECSV" )
 #image = cv2.imread()
 downloadToImages(Img,N)

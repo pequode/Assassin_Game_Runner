@@ -6,6 +6,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import json
 DEBUG = True
+# reads CSV file three lists
 def extractInputs(csvPath = "Entrants.csv" ):
     Names = []
     Emails =[]
@@ -20,12 +21,14 @@ def extractInputs(csvPath = "Entrants.csv" ):
             ImageIDs.append(stringtoApp)
 
     return (Names,Emails,ImageIDs)
+# mixes the list up in a predictable manner(ie random but consistently random across each list)
 def scrambleList(Lists,seeds):
     random.seed(seeds)
     random.shuffle(Lists)
     return Lists
+# used to make a list of dictionaries with the persons name their email and their targets name and image.
 def createTagetsarray(L1,L2,L3):
-    seedL = len(L1)
+    seedL = len(L1) # this is so that we can recreate the list in an emergency NOT SECURE.
     Targets = []
     scrambledNames = scrambleList(L1,seedL)
     scrambledEmails = scrambleList(L2,seedL)
@@ -43,21 +46,25 @@ def createTagetsarray(L1,L2,L3):
         dictEntry = {"Name":scrambledNames[i],"Email":scrambledEmails[i],"Target":Targets[i][0],"ImageIDs":Targets[i][1]}
         listOfDicForGame.append(dictEntry)
     return listOfDicForGame
+
+# gets the password for the email address shown .
 def getPass(PassPath):
     f = open(PassPath)
     data = json.load(f)
     f.close()
     return data["Pass"]
 
+# sends a single email given a target
 def sendEmail(dic,extraText=""):
     port = 465  # For SSL
     # Create a secure SSL context
     context = ssl.create_default_context()
-    sender_email = "thebucallbacks@gmail.com"
+    sender_email = "thebucallbacks@gmail.com"# our email address this can be any email address with dev turned on
     message = MIMEMultipart("alternative")
     message["Subject"] = "{name}'s Assassin Target".format(name=dic["Name"])
     message["From"] = sender_email
     message["To"] = dic["Email"]
+    # html formated email body
     html = """\
     <html>
       <body>
@@ -100,20 +107,21 @@ def sendEmail(dic,extraText=""):
 
     part2 = MIMEText(html, "html")
     message.attach(part2)
-
+    # sends to smtp server
     with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-        server.login(sender_email, getPass("/home/whorehay/Desktop/github/Assassin_Game_Runner/critical.json"))
+        server.login(sender_email, getPass("./Assassin_Game_Runner/critical.json"))
         server.sendmail(sender_email, dic["Email"], message.as_string())
+# sends email to every dic entry
 def sendEmails(ListOFDics):
     count=0
     for i in ListOFDics:
         count +=1;
         if (DEBUG==False):sendEmail(i)
         print("Sending {n}'th' email".format(n=count))
-
+# runs all the above messages
 if __name__ == "__main__":
     print(os.listdir())
-    [N,E,I] = extractInputs("/home/whorehay/Desktop/github/Assassin_Game_Runner/ASSASSIN.csv")
+    [N,E,I] = extractInputs("./Assassin_Game_Runner/ASSASSIN.csv")
     dicOfTargets = createTagetsarray(N,E,I)
     print(len(dicOfTargets))
     sendEmails(dicOfTargets)
