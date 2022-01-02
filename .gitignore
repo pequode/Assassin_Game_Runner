@@ -19,6 +19,6 @@ bin-release/
 
 # personal information
 *IN.csv
-ASSASSIN.json
-images/
+*ASSASSIN.json
+images/*
 *critical.json

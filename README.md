@@ -37,12 +37,12 @@ The issue with this game typically is that it need a game master to create a ran
 
    * **setting up the files**: This program is designed to hide any of the files with personal info. This means that you will be missing a lot of files at the beginning of the process and you will need to recreate them. Your should take the CSV output from the survey and put it in the `Assassin_Game_Runner` folder. Make sure that its named "ASSASSIN.CSV". You will also need a file called "critical.json" in the same folder. This is used to hold the account email password. the file should look like this
 
-   ```critical.json```
+   `critical.json`
    ```
     {
       "PASS":"yourpassword"
      }
-     ```  
+    ```  
 
 
    **Running the game**: To run the game you should open a terminal in the folder with Assassin_Game_Runner. A terminal is a way of running commands for your computer with just a text based system. It may be frustrating at first but it is super useful.
@@ -59,7 +59,7 @@ The issue with this game typically is that it need a game master to create a ran
 
 
 ##### Create a image of the field:
-To run this you need to do a little more but less of it will be in the command line. First in `-Assassin_Game_Runner` create a folder called "images". Then download the images to the images folder and rename them to the corresponding person email. So "Greg" with the image "10902.jpg" and the email "gregscool@gmail.com" would have the image named "gregscool.jpg". Do that for all the players. Next make a file called `ASSASSIN.json` by using a online CSV to JSON converter. Open this file and add `ASS ='` to the beginning of the file and `';` to the end. Then open *tester.html* in a web browser by double clicking it and you should see the grid load! 
+To run this you need to do a little more but less of it will be in the command line. First in `-Assassin_Game_Runner` create a folder called "images". Then download the images to the images folder and rename them to the corresponding person email. So "Greg" with the image "10902.jpg" and the email "gregscool@gmail.com" would have the image named "gregscool.jpg". Do that for all the players. Next make a file called `ASSASSIN.json` by using a online CSV to JSON converter. Open this file and add `ASS ='` to the beginning of the file and `';` to the end. Then open *tester.html* in a web browser by double clicking it and you should see the grid load!
 
 ## Credit:
 * my co-president created the google form and group me group.
